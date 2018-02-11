@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CustomSearch</string>
+    <string name="default_text">Introduce algo</string>
 </resources>
