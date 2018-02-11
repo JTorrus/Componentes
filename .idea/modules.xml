@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Components_JTorrus.iml" filepath="$PROJECT_DIR$/Components_JTorrus.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/customsearch/customsearch.iml" filepath="$PROJECT_DIR$/customsearch/customsearch.iml" />
     </modules>
   </component>
 </project>
