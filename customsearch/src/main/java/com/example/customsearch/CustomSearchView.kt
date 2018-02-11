@@ -2,6 +2,7 @@ package com.example.customsearch
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.text.Editable
 import android.text.Layout
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -10,7 +11,25 @@ import android.widget.EditText
 import android.widget.ImageButton
 import kotlinx.android.synthetic.main.custom_search_view.view.*
 
-class CustomSearchView : View {
+class CustomSearchView : View, View.OnClickListener {
+    private lateinit var mCallback: OnSearchButtonClickedListener
+
+    override fun onClick(view: View?) {
+        if (view?.id == buttonDelete.id) {
+            searchText.setText("")
+        } else if (view?.id == buttonSearch.id) {
+            mCallback.onSearchButtonClicked(this, searchText.text.toString())
+        }
+    }
+
+    interface OnSearchButtonClickedListener {
+        fun onSearchButtonClicked(source: CustomSearchView, currentText: String)
+    }
+
+    fun setOnSearchButtonClickedListener(listener: OnSearchButtonClickedListener) {
+        mCallback = listener
+    }
+
     constructor(context: Context) : super(context) {
         init(null, 0)
     }
@@ -42,6 +61,9 @@ class CustomSearchView : View {
         }
 
         typedArray.recycle()
+
+        buttonSearch.setOnClickListener(this)
+        buttonDelete.setOnClickListener(this)
     }
 
     fun setHintText(text: String) {
