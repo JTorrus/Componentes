@@ -9,9 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.custom_search_view.view.*
 
-class CustomSearchView : View, View.OnClickListener {
+class CustomSearchView : LinearLayout, View.OnClickListener {
     private lateinit var mCallback: OnSearchButtonClickedListener
 
     override fun onClick(view: View?) {
@@ -45,19 +46,18 @@ class CustomSearchView : View, View.OnClickListener {
     private fun init(attrs: AttributeSet?, defStyle: Int) {
         val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-        inflater.inflate(R.layout.custom_search_view, null)
-
+        inflater.inflate(R.layout.custom_search_view, this)
         val typedArray: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomSearchView, defStyle, 0)
-        val charSequence: CharSequence = typedArray.getString(R.styleable.CustomSearchView_hintText)
+        val charSequence = typedArray.getString(R.styleable.CustomSearchView_hintText)
 
-        if (charSequence.isNotEmpty()) {
-            setHintText(typedArray.toString())
+        if (charSequence != null) {
+            setHintText(charSequence.toString())
         }
 
         val textSize: Int = typedArray.getDimensionPixelOffset(R.styleable.CustomSearchView_textSize, 16)
 
         if (textSize > 0) {
-            setTextSize(textSize.toFloat())
+            setTextSize(textSize)
         }
 
         typedArray.recycle()
@@ -67,13 +67,13 @@ class CustomSearchView : View, View.OnClickListener {
     }
 
     fun setHintText(text: String) {
-        searchText.hint = text
+        searchText.setHint(text)
         invalidate()
         requestLayout()
     }
 
-    fun setTextSize(size: Float) {
-        searchText.textSize = size
+    fun setTextSize(size: Int) {
+        searchText.setTextSize(size.toFloat())
         invalidate()
         requestLayout()
     }
